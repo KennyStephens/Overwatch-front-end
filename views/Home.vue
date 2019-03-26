@@ -127,7 +127,7 @@ export default {
           this.loadingShow = false;
           console.log(data);
           this.characterData = data;
-        }, 3000);
+        }, 2500);
       })
       .catch(err => console.log(err));
   },
