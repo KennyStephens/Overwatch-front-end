@@ -173,6 +173,7 @@ export default {
     };
   },
   created() {
+    console.log(this.name);
     fetch(`https://secure-reef-86107.herokuapp.com/name/${this.name}`, {
       method: "GET",
       headers: {
@@ -183,7 +184,7 @@ export default {
         return response.json();
       })
       .then(data => {
-        // console.log(data);
+        console.log(data);
         this.characterData = data[0];
       })
       .catch(err => console.log(err));
@@ -194,7 +195,7 @@ export default {
       const imageArrayLength = this.images.length;
       const imageArraySelection = Math.floor(Math.random() * imageArrayLength);
       this.randomImage = imageArraySelection;
-      console.log(imageArraySelection);
+      // console.log(imageArraySelection);
     },
     imageTransition() {
       document.querySelector("img").style.opacity = "1";
