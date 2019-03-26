@@ -67,6 +67,7 @@
 
     <section class="section">
       <div class="container">
+        <img src="https://media.giphy.com/media/cZDRRGVuNMLOo/giphy.gif" alt="" v-if="loadingShow" style="margin: auto; display: block;">
         <div class="columns is-multiline">
           <div
             class="column is-4 character-card"
@@ -102,7 +103,8 @@
 export default {
   data() {
     return {
-      characterData: []
+      characterData: [],
+      loadingShow: true
     };
   },
   created() {
@@ -116,6 +118,7 @@ export default {
         return response.json();
       })
       .then(data => {
+        this.loadingShow = false;
         console.log(data);
         this.characterData = data;
       })
