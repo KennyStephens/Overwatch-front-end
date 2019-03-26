@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "../views/Home.vue";
 import OwAddCharacter from "../views/OwAddCharacter.vue";
-import OwCharacterDetail from "../views/owCharacterDetail.vue";
+import OwCharacterDetail from "../views/OwCharacterDetail.vue";
 import HomeGraphql from "../views/HomeGraphql.vue";
 import OwAddCharacterGraphql from '../views/OwAddCharacterGraphql';
 
