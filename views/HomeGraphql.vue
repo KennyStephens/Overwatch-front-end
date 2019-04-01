@@ -98,11 +98,27 @@
 </template>
 
 <script>
+import gql from "graphql-tag";
+
+const testThing = gql`query getCharByName {
+        owcharacters(where: { name: "Zenyatta" }) {
+          _id
+          name
+          quote
+          weapon
+          imageUrl
+          class
+        }
+      }`
+
 export default {
   data() {
     return {
       characterData: []
     };
+  },
+  apollo: {
+    name: testThing
   },
   created() {
     fetch(`https://secure-reef-86107.herokuapp.com`, {
