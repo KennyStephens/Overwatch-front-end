@@ -114,7 +114,8 @@ const testThing = gql`query getCharByName {
 export default {
   data() {
     return {
-      characterData: []
+      characterData: [],
+      name: ''
     };
   },
   apollo: {
