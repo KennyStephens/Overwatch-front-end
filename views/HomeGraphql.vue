@@ -108,64 +108,65 @@ export default {
   },
   apollo: {
     characterData: {
-        query: gql`
-          query getAllChars {
-            owcharacters {
-              name
-              quote
-              imageUrl
-            }
+      query: gql`
+        query getAllChars {
+          owcharacters {
+            name
+            quote
+            imageUrl
           }
-        `,
+        }
+      `,
       update(data) {
         console.log(data);
         return data.owcharacters;
       }
     }
   },
-  created() {},
   methods: {
     filterCharsClass() {
-      const selectInputValue = document.querySelector("select").value;
+      const selectInputValue = document.querySelector(".filter-by-class").value;
       console.log(selectInputValue);
-      fetch(
-        `https://secure-reef-86107.herokuapp.com/class/${selectInputValue}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
+      this.$apollo
+        .query({
+          query: gql`
+            query getCharByClass($class: String) {
+              owcharacters(where: { class: $class }) {
+                name
+                quote
+                imageUrl
+              }
+            }
+          `,
+          variables: {
+            class: selectInputValue
           }
-        }
-      )
-        .then(response => {
-          return response.json();
         })
-        .then(data => {
-          console.log(data);
-          this.characterData = data;
-        })
-        .catch(err => console.log(err));
+        .then(res => {
+          this.characterData = res.data.owcharacters;
+        });
     },
     filterCharsName() {
       const selectInputValue = document.querySelector(".filter-by-name").value;
       console.log(selectInputValue);
-      fetch(
-        `https://secure-reef-86107.herokuapp.com/name/${selectInputValue}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
+      this.$apollo
+        .query({
+          query: gql`
+            query getCharByClass($name: String) {
+              owcharacters(where: { name: $name }) {
+                name
+                quote
+                imageUrl
+              }
+            }
+          `,
+          variables: {
+            name: selectInputValue
           }
-        }
-      )
-        .then(response => {
-          return response.json();
         })
-        .then(data => {
-          console.log(data);
-          this.characterData = data;
-        })
-        .catch(err => console.log(err));
+        .then(res => {
+          this.characterData = res.data.owcharacters;
+        });
     }
   }
 };
