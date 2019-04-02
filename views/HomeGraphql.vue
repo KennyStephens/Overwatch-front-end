@@ -100,43 +100,30 @@
 <script>
 import gql from "graphql-tag";
 
-const testThing = gql`query getCharByName {
-        owcharacters(where: { name: "Zenyatta" }) {
-          _id
-          name
-          quote
-          weapon
-          imageUrl
-          class
-        }
-      }`
-
 export default {
   data() {
     return {
-      characterData: [],
-      name: ''
+      characterData: []
     };
   },
   apollo: {
-    name: testThing
-  },
-  created() {
-    fetch(`https://secure-reef-86107.herokuapp.com`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
+    characterData: {
+        query: gql`
+          query getAllChars {
+            owcharacters {
+              name
+              quote
+              imageUrl
+            }
+          }
+        `,
+      update(data) {
         console.log(data);
-        this.characterData = data;
-      })
-      .catch(err => console.log(err));
+        return data.owcharacters;
+      }
+    }
   },
+  created() {},
   methods: {
     filterCharsClass() {
       const selectInputValue = document.querySelector("select").value;
