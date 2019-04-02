@@ -82,7 +82,7 @@
                   <i class="fas fa-quote-left is-size-3" style="color: rgba(255,255,255,.2)"></i>
                   <h1 class="is-size-4 is-italic has-text-weight-light">{{ character.quote }}</h1>
                   <router-link
-                    :to="/character-detail/ + character.name"
+                    :to="/character-detail-graphql/ + character.name"
                     tag="button"
                     class="button is-primary is-small"
                     style="margin-top: 30px;"

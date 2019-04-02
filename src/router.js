@@ -5,6 +5,7 @@ import OwAddCharacter from "../views/OwAddCharacter.vue";
 import OwCharacterDetail from "../views/OwCharacterDetail.vue";
 import HomeGraphql from "../views/HomeGraphql.vue";
 import OwAddCharacterGraphql from '../views/OwAddCharacterGraphql';
+import OwCharacterDetailGraphql from '../views/OwCharacterDetailGraphql';
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
       path: "/add-character-graphql",
       name: "addCharacterGraphql",
       component: OwAddCharacterGraphql
+    },
+    {
+      path: "/character-detail-graphql/:name",
+      name: "characterDetailGraphql",
+      component: OwCharacterDetailGraphql
     }
   ]
 });
