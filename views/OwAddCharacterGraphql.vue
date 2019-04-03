@@ -87,7 +87,7 @@ export default {
         mutation: gql`
           mutation createChar($name: String, $className: String, $weapon: String, $quote: String, $ultimate: String, $imageUrl: String) {
             createOwcharacter(data: { name: $name, class: $className, weapon: $weapon, quote: $quote, ultimate: $ultimate, imageUrl: $imageUrl }) {
-              name:
+              name
               class
               weapon
               quote

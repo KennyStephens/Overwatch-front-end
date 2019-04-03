@@ -178,6 +178,7 @@ export default {
       query: gql`
         query getCharByName($name: String) {
           owcharacters(where: { name: $name }) {
+            _id
             name
             class
             imageUrl
@@ -210,31 +211,20 @@ export default {
     },
     deleteCharacter() {
       const characterId = this.characterData._id;
-      // console.log(characterId);
-      return fetch(
-        `https://secure-reef-86107.herokuapp.com/delete/${characterId}`,
-        {
-          method: "DELETE"
-        }
-      )
-        .then(result => {
-          // return console.log(result);
-          this.deleteShow = true;
-          const deleteCharacter = document.getElementById("deleted");
-          deleteCharacter.innerHTML = "Character Deleted!";
-          setTimeout(() => {
-            if (
-              this.$router.currentRoute.path !==
-              `http://localhost:5000/name/${this.name}`
-            ) {
-              this.$router.push({ name: "home" });
-            }
-          }, 4000);
+      console.log(characterId);
 
-          // console.log(this.$router.currentRoute.path);
-          // this.$router.go('/');
-        })
-        .catch(err => console.log(err));
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation deleteChar($id: ID) {
+            deleteOwcharacter(where: { _id: $id }) {
+              _id
+            }
+          }
+        `,
+        variables: {
+          id: characterId
+        }
+      });
     },
     editCharacter() {
       const modal = document.querySelector(".modal").classList.add("is-active");
