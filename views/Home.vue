@@ -158,7 +158,7 @@ export default {
           return response.json();
         })
         .then(data => {
-          console.log(data);
+          // console.log(data);
           this.characterData = data;
         })
         .catch(err => console.log(err));

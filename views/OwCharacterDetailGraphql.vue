@@ -1,8 +1,7 @@
 <template>
   <section class="section">
     <div class="container">
-      <div id="deleted" class="notification is-danger is-size-5" v-show="deleteShow">
-      </div>
+      <div id="deleted" class="notification is-danger is-size-5" v-show="deleteShow"></div>
       <div
         class="card card-background"
         :style="{ backgroundImage: 'url(' + images[randomImage] + ')' }"
@@ -143,11 +142,13 @@
 </template>
 
 <script>
+import gql from "graphql-tag";
+
 export default {
   data() {
     return {
       name: this.$route.params.name,
-      characterData: {},
+      characterData: [],
       deleteShow: false,
       images: [
         "https://gamepedia.cursecdn.com/overwatch_gamepedia/thumb/4/46/Hanamura_concept.jpg/800px-Hanamura_concept.jpg?version=cba0e20ddb6e4d0a188668500b8bb7ab",
@@ -172,23 +173,30 @@ export default {
       characterEditData: {}
     };
   },
-  created() {
-    console.log(this.name);
-    fetch(`https://secure-reef-86107.herokuapp.com/name/${this.name}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
+  apollo: {
+    characterData: {
+      query: gql`
+        query getCharByName($name: String) {
+          owcharacters(where: { name: $name }) {
+            _id
+            name
+            class
+            imageUrl
+            weapon
+            ultimate
+          }
+        }
+      `,
+      variables() {
+        return {
+          name: this.name
+        };
+      },
+      update(data) {
+        // console.log(data.owcharacters[0]);
+        return data.owcharacters[0];
       }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        // console.log(data);
-        this.characterData = data[0];
-      })
-      .catch(err => console.log(err));
-    this.bgImageChange();
+    }
   },
   methods: {
     bgImageChange() {
@@ -203,28 +211,20 @@ export default {
     },
     deleteCharacter() {
       const characterId = this.characterData._id;
-      // console.log(characterId);
-      return fetch(`https://secure-reef-86107.herokuapp.com/delete/${characterId}`, {
-        method: "DELETE"
-      })
-        .then(result => {
-          // return console.log(result);
-          this.deleteShow = true;
-          const deleteCharacter = document.getElementById("deleted");
-          deleteCharacter.innerHTML = "Character Deleted!";
-          setTimeout(() => {
-            if (
-              this.$router.currentRoute.path !==
-              `http://localhost:5000/name/${this.name}`
-            ) {
-              this.$router.push({ name: "home" });
-            }
-          }, 4000);
+      console.log(characterId);
 
-          // console.log(this.$router.currentRoute.path);
-          // this.$router.go('/');
-        })
-        .catch(err => console.log(err));
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation deleteChar($id: ID) {
+            deleteOwcharacter(where: { _id: $id }) {
+              _id
+            }
+          }
+        `,
+        variables: {
+          id: characterId
+        }
+      });
     },
     editCharacter() {
       const modal = document.querySelector(".modal").classList.add("is-active");
