@@ -148,7 +148,7 @@ export default {
   data() {
     return {
       name: this.$route.params.name,
-      characterData: {},
+      characterData: [],
       deleteShow: false,
       images: [
         "https://gamepedia.cursecdn.com/overwatch_gamepedia/thumb/4/46/Hanamura_concept.jpg/800px-Hanamura_concept.jpg?version=cba0e20ddb6e4d0a188668500b8bb7ab",
@@ -176,8 +176,8 @@ export default {
   apollo: {
     characterData: {
       query: gql`
-        query getCharByName {
-          owcharacters(where: { name: "Bastion" }) {
+        query getCharByName($name: String) {
+          owcharacters(where: { name: $name }) {
             name
             class
             imageUrl
@@ -186,12 +186,14 @@ export default {
           }
         }
       `,
-      // variables: {
-      //   name: this.name
-      // },
+      variables() {
+        return {
+          name: this.name
+        };
+      },
       update(data) {
-        console.log(data);
-        return data.owcharacters;
+        // console.log(data.owcharacters[0]);
+        return data.owcharacters[0];
       }
     }
   },

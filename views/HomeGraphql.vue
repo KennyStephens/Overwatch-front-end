@@ -118,7 +118,7 @@ export default {
         }
       `,
       update(data) {
-        console.log(data);
+        // console.log(data);
         return data.owcharacters;
       }
     }
@@ -152,7 +152,7 @@ export default {
       this.$apollo
         .query({
           query: gql`
-            query getCharByClass($name: String) {
+            query getCharByName($name: String) {
               owcharacters(where: { name: $name }) {
                 name
                 quote
