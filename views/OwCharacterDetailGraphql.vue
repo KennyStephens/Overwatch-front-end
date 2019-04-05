@@ -49,92 +49,90 @@
       <div class="modal-content">
         <h1 class="is-size-2 has-text-light">Edit a Character</h1>
         <hr>
-        <form action="https://secure-reef-86107.herokuapp.com/put" method="POST">
-          <div class="field">
-            <label class="label has-text-light">Name</label>
-            <div class="control">
-              <input
-                id="name"
-                class="input"
-                type="text"
-                placeholder="Character Name"
-                name="name"
-                :value="characterEditData.name"
-              >
-            </div>
+        <div class="field">
+          <label class="label has-text-light">Name</label>
+          <div class="control">
+            <input
+              id="name"
+              class="input"
+              type="text"
+              placeholder="Character Name"
+              name="name"
+              :value="characterEditData.name"
+            >
           </div>
-          <div class="field">
-            <label class="label has-text-light">Class</label>
-            <div class="control">
-              <input
-                id="characterClass"
-                class="input"
-                type="text"
-                placeholder="Character Class"
-                name="characterClass"
-                :value="characterEditData.class"
-              >
-            </div>
+        </div>
+        <div class="field">
+          <label class="label has-text-light">Class</label>
+          <div class="control">
+            <input
+              id="characterClass"
+              class="input"
+              type="text"
+              placeholder="Character Class"
+              name="characterClass"
+              :value="characterEditData.class"
+            >
           </div>
-          <div class="field">
-            <label class="label has-text-light">Weapon</label>
-            <div class="control">
-              <input
-                id="weapon"
-                class="input"
-                type="text"
-                placeholder="Character Weapon"
-                name="weapon"
-                :value="characterEditData.weapon"
-              >
-            </div>
+        </div>
+        <div class="field">
+          <label class="label has-text-light">Weapon</label>
+          <div class="control">
+            <input
+              id="weapon"
+              class="input"
+              type="text"
+              placeholder="Character Weapon"
+              name="weapon"
+              :value="characterEditData.weapon"
+            >
           </div>
-          <div class="field">
-            <label class="label has-text-light">Ultimate</label>
-            <div class="control">
-              <input
-                id="ultimate"
-                class="input"
-                type="text"
-                placeholder="Character Ultimate"
-                name="ultimate"
-                :value="characterEditData.ultimate"
-              >
-            </div>
+        </div>
+        <div class="field">
+          <label class="label has-text-light">Ultimate</label>
+          <div class="control">
+            <input
+              id="ultimate"
+              class="input"
+              type="text"
+              placeholder="Character Ultimate"
+              name="ultimate"
+              :value="characterEditData.ultimate"
+            >
           </div>
-          <div class="field">
-            <label class="label has-text-light">Quote</label>
-            <div class="control">
-              <input
-                id="quote"
-                class="input"
-                type="text"
-                placeholder="Character Quote"
-                name="quote"
-                :value="characterEditData.quote"
-              >
-            </div>
+        </div>
+        <div class="field">
+          <label class="label has-text-light">Quote</label>
+          <div class="control">
+            <input
+              id="quote"
+              class="input"
+              type="text"
+              placeholder="Character Quote"
+              name="quote"
+              :value="characterEditData.quote"
+            >
           </div>
-          <div class="field">
-            <label class="label has-text-light">Image URL</label>
-            <div class="control">
-              <input
-                id="imageUrl"
-                class="input"
-                type="text"
-                placeholder="Image URL"
-                name="imageUrl"
-                :value="characterEditData.imageUrl"
-              >
-            </div>
+        </div>
+        <div class="field">
+          <label class="label has-text-light">Image URL</label>
+          <div class="control">
+            <input
+              id="imageUrl"
+              class="input"
+              type="text"
+              placeholder="Image URL"
+              name="imageUrl"
+              :value="characterEditData.imageUrl"
+            >
           </div>
-          <input id="id" type="hidden" :value="characterEditData.id" name="id">
-          <div class="field">
-            <div class="control">
-              <button class="button is-link" type="button" @click="updateCharacter">Submit</button>
-            </div>
+        </div>
+        <input id="id" type="hidden" :value="characterEditData.id" name="id">
+        <div class="field">
+          <div class="control">
+            <button class="button is-link" type="button" @click="updateCharacter">Submit</button>
           </div>
-        </form>
+        </div>
       </div>
       <button @click="modalClose" class="modal-close is-large" aria-label="close"></button>
     </div>
@@ -213,18 +211,37 @@ export default {
       const characterId = this.characterData._id;
       console.log(characterId);
 
-      this.$apollo.mutate({
-        mutation: gql`
-          mutation deleteChar($id: ID) {
-            deleteOwcharacter(where: { _id: $id }) {
-              _id
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation deleteChar($id: ID) {
+              deleteOwcharacter(where: { _id: $id }) {
+                _id
+              }
             }
+          `,
+          variables: {
+            id: characterId
           }
-        `,
-        variables: {
-          id: characterId
-        }
-      });
+        })
+        .then(result => {
+          console.log(result);
+          this.deleteShow = true;
+          const deleteCharacter = document.getElementById("deleted");
+          deleteCharacter.innerHTML = "Character Deleted!";
+          setTimeout(() => {
+            if (
+              this.$router.currentRoute.path !==
+              `http://localhost:5000/name/${this.name}`
+            ) {
+              this.$router.push({ name: "homeGraphql" });
+            }
+          }, 4000);
+
+          // console.log(this.$router.currentRoute.path);
+          // this.$router.go('/');
+        })
+        .catch(err => console.log(err));
     },
     editCharacter() {
       const modal = document.querySelector(".modal").classList.add("is-active");
@@ -261,19 +278,47 @@ export default {
         imageUrl,
         quote
       };
-      // console.log(updatedCharacterData);
-      fetch("https://secure-reef-86107.herokuapp.com/put", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(updatedCharacterData)
-      })
-        .then(result => {
-          console.log(result);
-          const modal = document.querySelector(".modal");
-          modal.classList.remove("is-active");
-          this.$router.push({ name: "home" });
+      console.log(updatedCharacterData);
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation updateChar(
+              $id: ID
+              $name: String
+              $className: String
+              $weapon: String
+              $quote: String
+              $ultimate: String
+              $imageUrl: String
+            ) {
+              updateOwcharacter(
+                data: {
+                  name: $name
+                  class: $className
+                  quote: $quote
+                  weapon: $weapon
+                  ultimate: $ultimate
+                  imageUrl: $imageUrl
+                }
+                where: { _id: $id }
+              ) {
+                name
+              }
+            }
+          `,
+          variables: {
+            id: updatedCharacterData.id,
+            name: updatedCharacterData.name,
+            className: updatedCharacterData.characterClass,
+            weapon: updatedCharacterData.weapon,
+            quote: updatedCharacterData.quote,
+            ultimate: updatedCharacterData.ultimate,
+            imageUrl: updatedCharacterData.imageUrl
+          }
+        })
+        .then(res => {
+          console.log(res);
+          this.$router.push({ name: "homeGraphql" });
         })
         .catch(err => console.log(err));
     },
