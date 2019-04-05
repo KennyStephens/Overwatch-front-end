@@ -110,7 +110,7 @@ export default {
     characterData: {
       query: gql`
         query getAllChars {
-          owcharacters {
+          owcharacters(orderBy: name_ASC) {
             name
             quote
             imageUrl
