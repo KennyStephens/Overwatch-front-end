@@ -232,7 +232,7 @@ export default {
           setTimeout(() => {
             if (
               this.$router.currentRoute.path !==
-              `http://localhost:5000/name/${this.name}`
+              `http://localhost:8080/name/${this.name}`
             ) {
               this.$router.push({ name: "homeGraphql" });
             }
