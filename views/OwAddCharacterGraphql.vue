@@ -104,6 +104,9 @@ export default {
           ultimate: ultimate,
           imageUrl: imageUrl
         }
+      })
+      .then(res => {
+        this.$router.push({ name: "homeGraphql" });
       });
     }
   }
