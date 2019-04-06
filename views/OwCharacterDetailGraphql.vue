@@ -182,6 +182,7 @@ export default {
             imageUrl
             weapon
             ultimate
+            quote
           }
         }
       `,
@@ -258,6 +259,8 @@ export default {
         imageUrl: characterData.imageUrl,
         quote: characterData.quote
       };
+
+      console.log(this.characterEditData.ultimate);
     },
     updateCharacter() {
       // console.log(this.characterEditData);
