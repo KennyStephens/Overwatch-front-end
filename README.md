@@ -7,7 +7,7 @@ To start Nexus-Prisma server just run the following:
 2. `cd into project folder`
 3. `npm install`
 4. `docker-compose up -d`
-5. `npm start
+5. `npm start`
 
 Doing this will allow you to visit the pages requiring Graphql.
 
