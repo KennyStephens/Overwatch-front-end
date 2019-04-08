@@ -1,5 +1,17 @@
 # Overwatch REST/Graphql API
 
+[FIND APP HERE](https://distracted-albattani-e811d6.netlify.com/#/)
+
+To start Nexus-Prisma server just run the following: 
+1. `Clone repo`
+2. `cd into project folder`
+3. `npm install`
+4. `docker-compose up -d`
+5. `npm start
+
+Doing this will allow you to visit the pages requiring Graphql.
+
+
 ## 3 GET/Queries
 1. Get all characters
 2. Get character by name
