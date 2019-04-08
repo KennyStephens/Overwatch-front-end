@@ -1,21 +1,24 @@
-# overwatch-frontend
+## Overwatch REST/Graphql API
 
-## Project setup
-```
-npm install
-```
+## 3 Gets/Queries
+1. Get all characters
+2. Get character by name
+3. Get character by class
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Post/Create
+1. Create a character
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Delete
+1. Delete a character
 
-### Lints and fixes files
-```
-npm run lint
+## PUT/Update
+1. Update a character
+
+## Other Notes
+- Data is seeded from MongoDB data store
+- Front end uses the Vuejs framework
+
+
+
+
 ```

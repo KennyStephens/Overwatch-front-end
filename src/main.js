@@ -11,7 +11,7 @@ Vue.config.productionTip = false;
 // HTTP connexion to the API
 const httpLink = new HttpLink({
   // You should use an absolute URL here
-  uri: 'http://localhost:4466',
+  uri: 'http://localhost:4000',
 })
 
 // Cache implementation
