@@ -5,7 +5,7 @@
 2. Get character by name
 3. Get character by class
 
-## Post/Create
+## POST/Create
 1. Create a character
 
 ## Delete
