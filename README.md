@@ -1,4 +1,4 @@
-### Overwatch REST/Graphql API
+# Overwatch REST/Graphql API
 
 ## 3 Gets/Queries
 1. Get all characters
