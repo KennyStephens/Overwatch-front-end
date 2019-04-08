@@ -18,7 +18,3 @@
 - Data is seeded from MongoDB data store
 - Front end uses the Vuejs framework
 
-
-
-
-```
