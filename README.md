@@ -3,7 +3,7 @@
 [FIND APP HERE](https://distracted-albattani-e811d6.netlify.com/#/)
 
 To start Nexus-Prisma server just run the following: 
-1. `[Clone repo](https://github.com/KennyStephens/prisma-mongodb-API)`
+1. `Clone repo (https://github.com/KennyStephens/prisma-mongodb-API)`
 2. `cd into project folder`
 3. `npm install`
 4. `docker-compose up -d`
