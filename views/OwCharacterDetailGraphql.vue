@@ -281,7 +281,7 @@ export default {
         imageUrl,
         quote
       };
-      console.log(updatedCharacterData);
+      // console.log(updatedCharacterData);
       this.$apollo
         .mutate({
           mutation: gql`
