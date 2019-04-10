@@ -83,31 +83,48 @@ export default {
       const imageUrl = document.getElementById("imageUrl").value;
       console.log(name, className, quote, ultimate, imageUrl, weapon);
 
-      this.$apollo.mutate({
-        mutation: gql`
-          mutation createChar($name: String, $className: String, $weapon: String, $quote: String, $ultimate: String, $imageUrl: String) {
-            createOwcharacter(data: { name: $name, class: $className, weapon: $weapon, quote: $quote, ultimate: $ultimate, imageUrl: $imageUrl }) {
-              name
-              class
-              weapon
-              quote
-              ultimate
-              imageUrl
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation createChar(
+              $name: String
+              $className: String
+              $weapon: String
+              $quote: String
+              $ultimate: String
+              $imageUrl: String
+            ) {
+              createOwcharacter(
+                data: {
+                  name: $name
+                  class: $className
+                  weapon: $weapon
+                  quote: $quote
+                  ultimate: $ultimate
+                  imageUrl: $imageUrl
+                }
+              ) {
+                name
+                class
+                weapon
+                quote
+                ultimate
+                imageUrl
+              }
             }
+          `,
+          variables: {
+            name: name,
+            className: className,
+            weapon: weapon,
+            quote: quote,
+            ultimate: ultimate,
+            imageUrl: imageUrl
           }
-        `,
-        variables: {
-          name: name,
-          className: className,
-          weapon: weapon,
-          quote: quote,
-          ultimate: ultimate,
-          imageUrl: imageUrl
-        }
-      })
-      .then(res => {
-        this.$router.push({ name: "homeGraphql" });
-      });
+        })
+        .then(res => {
+          this.$router.push({ name: "homeGraphql" });
+        });
     }
   }
 };

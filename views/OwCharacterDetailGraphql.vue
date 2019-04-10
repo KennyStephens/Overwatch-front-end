@@ -245,7 +245,7 @@ export default {
         .catch(err => console.log(err));
     },
     editCharacter() {
-      const modal = document.querySelector(".modal").classList.add("is-active");
+      document.querySelector(".modal").classList.add("is-active");
 
       const characterData = this.characterData;
       // console.log(characterData._id);
@@ -363,5 +363,3 @@ img {
   transition: all 0.75s;
 }
 </style>
-
-
