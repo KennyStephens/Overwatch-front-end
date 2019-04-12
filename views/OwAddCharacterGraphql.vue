@@ -123,7 +123,7 @@ export default {
           }
         })
         .then(res => {
-          this.$router.push({ name: "homeGraphql" });
+          this.$router.push({ name: "homeGraphql" }).go({ path: "homeGraphql" });;
         });
     }
   }
