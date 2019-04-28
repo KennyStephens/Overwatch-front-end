@@ -99,6 +99,7 @@
 
 <script>
 import gql from "graphql-tag";
+Vue.forceUpdate();
 
 export default {
   data() {
@@ -124,6 +125,9 @@ export default {
     }
   },
   methods: {
+    methodThatForcesUpdate() {
+      this.$forceUpdate();
+    },
     filterCharsClass() {
       const selectInputValue = document.querySelector(".filter-by-class").value;
       console.log(selectInputValue);
